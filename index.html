@@ -29,7 +29,7 @@
   <link rel="stylesheet" href="css/link.css">
 </head>
 
-<body>
+<body OnLoad="document.search.q.focus();">
 
   <div class="background">
     <div class="background-image"></div>
@@ -46,8 +46,6 @@
           <p class="date"></p>
         </div>
         <div class="header-item header-search">
-          <form class="search" action="" method="get">
-            <input class="header-search-input search-input mb-0" type="text" placeholder="Find or Search" name="q" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="1">
             <input type="submit" value="Search" class="is-hidden">
           </form>
           <button class="button button-link mb-0 header-search-clear search-clear" tabindex="1" disabled>
