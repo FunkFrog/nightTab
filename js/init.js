@@ -12,6 +12,7 @@ state.init();
 bookmarks.init();
 
 // close menu if left open
+// bind menu tabs
 menu.init();
 
 // render input color value
@@ -50,3 +51,6 @@ background.init();
 // render search engine
 // focus seach input
 search.init();
+
+// render page title
+title.init();

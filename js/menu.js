@@ -14,13 +14,16 @@ var menu = (function() {
     }, false);
   };
 
-  var _scrollToTop = function(element) {
-    element.scrollTop = 0;
+  var _scrollToTop = function() {
+    if (window.innerWidth < 550) {
+      helper.e(".menu-area").scrollTop = 0;
+    } else {
+      helper.e(".menu-content").scrollTop = 0;
+    };
   };
 
   var _tab = function(button) {
     var allMenuNavButton = helper.eA(".menu-nav-button");
-    var menuContent = helper.e(".menu-content");
     var allMenuContentArea = helper.eA(".menu-content-area");
     var target = helper.e(button.dataset.target);
     allMenuNavButton.forEach(function(arrayItem, index) {
@@ -31,33 +34,49 @@ var menu = (function() {
     });
     helper.addClass(button, "active");
     helper.removeClass(target, "is-hidden");
-    _scrollToTop(menuContent);
+    _scrollToTop();
   };
 
   var close = function() {
-    state.get().menu.active = false;
+    helper.setObject({
+      object: state.get(),
+      path: "menu",
+      newValue: false
+    });
     render();
   };
 
   var open = function() {
-    _scrollToTop(helper.e(".menu-content"));
-    state.get().menu.active = true;
+  _scrollToTop();
+    helper.setObject({
+      object: state.get(),
+      path: "menu",
+      newValue: true
+    });
     render();
   };
 
   var toggle = function() {
-    if (state.get().menu.active) {
-      state.get().menu.active = false;
+    if (state.get().menu) {
+      helper.setObject({
+        object: state.get(),
+        path: "menu",
+        newValue: false
+      });
     } else {
-      _scrollToTop(helper.e(".menu-content"));
-      state.get().menu.active = true;
+    _scrollToTop();
+      helper.setObject({
+        object: state.get(),
+        path: "menu",
+        newValue: true
+      });
     };
     render();
   };
 
   var render = function() {
     var html = helper.e("html");
-    if (state.get().menu.active) {
+    if (state.get().menu) {
       helper.addClass(html, "is-menu-open");
       helper.e(".menu").focus();
       shade.render({
